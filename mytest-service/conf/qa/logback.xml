@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<configuration scan="true" scanPeriod="60000" debug="false">
+
+    <property name="APP_NAME" value="mytest-service"/>
+    <property name="LOG_HOME" value="./log"/>
+    <property name="HOURLY_LOG_SIZE" value="168"/>
+
+    <contextName>${APP_NAME}</contextName>
+
+    <appender name="Console" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>[%level][%d{"yyyy-MM-dd'T'HH:mm:ss.SSSZ"}][%logger{100}:%line:%thread] %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <appender name="File"
+              class="ch.qos.logback.core.rolling.RollingFileAppender">
+        <rollingPolicy class="ch.qos.logback.core.rolling.TimeBasedRollingPolicy">
+            <FileNamePattern>${LOG_HOME}/${APP_NAME}.log.%d{yyyyMMddHH}</FileNamePattern>
+            <MaxHistory>${HOURLY_LOG_SIZE}</MaxHistory>
+        </rollingPolicy>
+        <encoder>
+            <pattern>[%level][%date{"yyyy-MM-dd'T'HH:mm:ss.SSSZ"}][%logger{100}:%line:%thread] %msg%n</pattern>
+        </encoder>
+        <filter class="ch.qos.logback.classic.filter.ThresholdFilter">
+            <level>INFO</level>
+        </filter>
+    </appender>
+
+    <logger name="com.xiaoju.am.framework" level="INFO" additivity="false">
+        <!--<appender-ref ref="Console"/>-->
+        <appender-ref ref="File"/>
+    </logger>
+
+    <root level="DEBUG">
+        <!--<appender-ref ref="Console"/>-->
+        <appender-ref ref="File"/>
+    </root>
+
+</configuration>

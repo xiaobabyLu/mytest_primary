@@ -1,0 +1,19 @@
+# Created by .ignore support plugin (hsz.mobi)
+/mytest-service/log/
+/mytest-service/output/
+/mytest-service/.settings/
+/mytest-service/target/
+/mytest-service/target/
+mytest-service/.DS_Store
+mytest-service/app.pid
+mytest-service/log/
+mytest-service/nohup.out
+mytest-service/output/
+mytest-service/target/
+mytest-service/var/
+log/
+.idea
+*.iml
+.classpath
+.project
+mytest-service/target/

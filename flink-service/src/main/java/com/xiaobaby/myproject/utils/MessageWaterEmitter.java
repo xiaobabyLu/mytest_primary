@@ -1,0 +1,34 @@
+package com.xiaobaby.myproject.utils;
+
+import org.apache.flink.streaming.api.functions.AssignerWithPunctuatedWatermarks;
+import org.apache.flink.streaming.api.watermark.Watermark;
+
+import javax.annotation.Nullable;
+
+/**
+ * @author Lu Yufeng
+ * @date 2018/8/7 下午9:31
+ */
+public class MessageWaterEmitter implements AssignerWithPunctuatedWatermarks<String>{
+
+    @Nullable
+    @Override
+    public Watermark checkAndGetNextWatermark(String lastElement, long extractedTimestamp) {
+        if(lastElement !=null && lastElement.contains(",")){
+            String [] parts = lastElement.split(",");
+
+            return  new Watermark(Long.parseLong(parts[0]));
+        }
+        return null;
+    }
+
+    @Override
+    public long extractTimestamp(String element, long extractedTimestamp) {
+        if(element!=null&&element.contains(",")){
+            String[] parts = element.split(",");
+            return Long.parseLong(parts[0]);
+        }
+
+        return 0L;
+    }
+}
